@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="23733df9-f98d-4eb8-b9ac-46656b0772b2" name="Changes" comment="inicial\" />
+    <list default="true" id="23733df9-f98d-4eb8-b9ac-46656b0772b2" name="Changes" comment="inicial\">
+      <change afterPath="$PROJECT_DIR$/EarthBnB/Imgur/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EarthBnB/Imgur/imgur_utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EarthBnB/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EarthBnB/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EarthBnB/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/error.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/image_uploaded.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/iniciar_sesion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/mi_template.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EarthBnB/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/EarthBnB/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EarthBnB/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/EarthBnB/urls.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -15,24 +42,44 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2eaPvQQMq3bI6z3orQItUMXWbwY" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Django Server.EarthBnB.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
     "git-widget-placeholder": "principal",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Proyectos\EarthBnB\EarthBnB" />
+      <recent name="C:\Proyectos\EarthBnB" />
+      <recent name="C:\Proyectos\EarthBnB\EarthBnB\trash" />
+      <recent name="C:\Proyectos\EarthBnB\EarthBnB\Imgur" />
+      <recent name="C:\Proyectos\EarthBnB\templates" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="EarthBnB" type="Python.DjangoServer" factoryName="Django server">
       <module name="EarthBnB" />
@@ -41,6 +88,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="EarthBnB.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -62,7 +110,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-09665e90c3a7-b11f5e8da5ad-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.15026.15" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
       </set>
     </attachedChunks>
   </component>
@@ -74,7 +123,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712139945556</updated>
-      <workItem from="1712139982443" duration="331000" />
+      <workItem from="1712139982443" duration="2239000" />
+      <workItem from="1712732930528" duration="10902000" />
     </task>
     <task id="LOCAL-00001" summary="inicial\">
       <option name="closed" value="true" />
