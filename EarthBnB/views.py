@@ -1,5 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from .models import CustomUser
+from .models import Propiedad
+from .models import FotosPropiedad
 from .forms import LoginForm, RegistrationForm
 
 
@@ -57,3 +59,23 @@ def mi_vista(request):
     else:
         form = ImageUploadForm()
     return render(request, 'mi_template.html', {'form': form})
+
+
+
+def lista_propiedades(request):
+    propiedades = Propiedad.objects.all()
+    return render(request, 'lista_propiedades.html', {'propiedades': propiedades})
+
+def lista_propiedades(request):
+    propiedades = Propiedad.objects.all()
+    propiedades_con_fotos = []
+    for propiedad in propiedades:
+        fotos = FotosPropiedad.objects.filter(propiedad_id=propiedad.id)
+        propiedades_con_fotos.append({'propiedad': propiedad, 'fotos': fotos})
+    return render(request, 'lista_propiedades.html', {'propiedades_con_fotos': propiedades_con_fotos})
+
+
+def detalle_propiedad(request, propiedad_id):
+    propiedad = get_object_or_404(Propiedad, pk=propiedad_id)
+    fotos = FotosPropiedad.objects.filter(propiedad_id=propiedad_id)
+    return render(request, 'detalle_propiedad.html', {'propiedad': propiedad, 'fotos': fotos})

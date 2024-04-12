@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -21,6 +22,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('El superusuario debe tener is_superuser=True.')
 
         return self.create_user(email, password, **extra_fields)
+
 
 class CustomUser(AbstractBaseUser):
     nombre = models.CharField(max_length=255)
@@ -54,3 +56,26 @@ class CustomUser(AbstractBaseUser):
         pass
 
 
+class Propiedad(models.Model):
+    direccion = models.CharField(max_length=255)
+    tipo = models.CharField(max_length=100)
+    habitaciones = models.IntegerField()
+    banos = models.IntegerField()
+    metros_cuadrados = models.DecimalField(max_digits=10, decimal_places=2)
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    class Meta:
+        db_table = 'propiedades'
+
+
+
+
+
+    def __str__(self):
+        return self.direccion
+
+class FotosPropiedad(models.Model):
+        propiedad = models.ForeignKey(Propiedad, on_delete=models.CASCADE)
+        ruta_foto = models.CharField(max_length=255)
+
+        class Meta:
+            db_table = 'fotos_propiedad'

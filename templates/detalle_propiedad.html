@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Propiedad</title>
+    <!-- Agrega cualquier estilo adicional necesario -->
+</head>
+<body>
+    <h1>Detalle de Propiedad</h1>
+    <div>
+        <p><strong>Dirección:</strong> {{ propiedad.direccion }}</p>
+        <p><strong>Tipo:</strong> {{ propiedad.tipo }}</p>
+        <p><strong>Habitaciones:</strong> {{ propiedad.habitaciones }}</p>
+        <p><strong>Baños:</strong> {{ propiedad.banos }}</p>
+        <p><strong>Metros Cuadrados:</strong> {{ propiedad.metros_cuadrados }}</p>
+        <p><strong>Precio:</strong> {{ propiedad.precio }}</p>
+        <h2>Fotos:</h2>
+        {% for foto in fotos %}
+            <img src="{{ foto.ruta_foto }}" alt="Foto de la propiedad">
+        {% endfor %}
+    </div>
+</body>
+</html>
