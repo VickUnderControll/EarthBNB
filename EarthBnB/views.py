@@ -78,4 +78,6 @@ def lista_propiedades(request):
 def detalle_propiedad(request, propiedad_id):
     propiedad = get_object_or_404(Propiedad, pk=propiedad_id)
     fotos = FotosPropiedad.objects.filter(propiedad_id=propiedad_id)
-    return render(request, 'detalle_propiedad.html', {'propiedad': propiedad, 'fotos': fotos})
+    propietario = propiedad.propietario  # Obtiene el propietario de la propiedad
+    return render(request, 'detalle_propiedad.html', {'propiedad': propiedad, 'fotos': fotos, 'propietario': propietario})
+

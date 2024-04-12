@@ -19,6 +19,9 @@
         {% for foto in fotos %}
             <img src="{{ foto.ruta_foto }}" alt="Foto de la propiedad">
         {% endfor %}
+        <h2>Propietario:</h2>
+        <p><strong>Nombre:</strong> {{ propietario.nombre }}</p>
+        <p><strong>Correo electrónico:</strong> {{ propietario.email }}</p>
     </div>
 </body>
 </html>

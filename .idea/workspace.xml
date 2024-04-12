@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23733df9-f98d-4eb8-b9ac-46656b0772b2" name="Changes" comment="funcional detalles de propiedades" />
+    <list default="true" id="23733df9-f98d-4eb8-b9ac-46656b0772b2" name="Changes" comment="funcional detalles de propiedades">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EarthBnB/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/EarthBnB/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EarthBnB/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/EarthBnB/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/detalle_propiedad.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detalle_propiedad.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -131,7 +136,7 @@
       <updated>1712139945556</updated>
       <workItem from="1712139982443" duration="2239000" />
       <workItem from="1712732930528" duration="15094000" />
-      <workItem from="1712904528937" duration="9783000" />
+      <workItem from="1712904528937" duration="12330000" />
     </task>
     <task id="LOCAL-00001" summary="inicial\">
       <option name="closed" value="true" />
@@ -173,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712915129318</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="funcional detalles de propiedades">
+      <option name="closed" value="true" />
+      <created>1712915205010</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1712915205010</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
