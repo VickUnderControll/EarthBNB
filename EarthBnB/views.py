@@ -1,39 +1,48 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from .forms import LoginForm, RegistroForm
-from .models import Usuario
+from .models import CustomUser
+from .forms import LoginForm, RegistrationForm
+
+
+
 from django.contrib import messages
 from django.shortcuts import render
 from .forms import ImageUploadForm
 from .Imgur.imgur_utils import upload_image_to_imgur
-def iniciar_sesion(request):
+
+
+def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
             email = form.cleaned_data['email']
             contrasena = form.cleaned_data['contrasena']
-            usuario = authenticate(email=email, password=contrasena)
-            if usuario is not None:
-                login(request, usuario)
-                return redirect('inicio')
-            else:
-                messages.error(request, 'Usuario o contraseña incorrectos.')
+
+            # Busca el usuario por su correo electrónico en la base de datos
+            try:
+                user = CustomUser.objects.get(email=email)
+                # Verifica si la contraseña proporcionada coincide
+                if user.password == contrasena:
+                    # Inicia sesión manualmente
+                    request.session['user_id'] = user.id
+                    messages.success(request, '¡Inicio de sesión exitoso!')
+                    return redirect('/')
+                else:
+                    messages.error(request, 'Credenciales incorrectas. Por favor, inténtalo de nuevo.')
+            except CustomUser.DoesNotExist:
+                messages.error(request, 'El usuario con este correo electrónico no existe.')
     else:
         form = LoginForm()
-    return render(request, 'iniciar_sesion.html', {'form': form})
+    return render(request, 'login.html', {'form': form})
 
-def registro(request):
+def register_view(request):
     if request.method == 'POST':
-        form = RegistroForm(request.POST)
+        form = RegistrationForm(request.POST)
         if form.is_valid():
-            nombre = form.cleaned_data['nombre']
-            email = form.cleaned_data['email']
-            contrasena = form.cleaned_data['contrasena']
-            Usuario.objects.create_user(nombre=nombre, email=email, contrasena=contrasena)
-            return redirect('iniciar_sesion')
+            form.save()  # Guarda el usuario en la base de datos si el formulario es válido
+            return redirect('login')  # Redirige al usuario a la página de inicio de sesión
     else:
-        form = RegistroForm()
-    return render(request, 'registro.html', {'form': form})
+        form = RegistrationForm()
+    return render(request, 'registration_form.html', {'form': form})
 
 def mi_vista(request):
     if request.method == 'POST':

@@ -86,6 +86,11 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'EarthBnB.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # Utiliza el backend de autenticación predeterminado
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
