@@ -4,11 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23733df9-f98d-4eb8-b9ac-46656b0772b2" name="Changes" comment="funcional detalles de propiedades">
+    <list default="true" id="23733df9-f98d-4eb8-b9ac-46656b0772b2" name="Changes" comment="funcional detalles de propiedades y propietarios">
+      <change afterPath="$PROJECT_DIR$/templates/crea_propiedad.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/editar_propiedad.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/lista_usuario.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/usuario.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EarthBnB/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/EarthBnB/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EarthBnB/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/EarthBnB/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EarthBnB/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/EarthBnB/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/detalle_propiedad.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detalle_propiedad.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/lista_propiedades.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/lista_propiedades.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,7 +144,10 @@
       <updated>1712139945556</updated>
       <workItem from="1712139982443" duration="2239000" />
       <workItem from="1712732930528" duration="15094000" />
-      <workItem from="1712904528937" duration="12330000" />
+      <workItem from="1712904528937" duration="14980000" />
+      <workItem from="1713434083699" duration="16000" />
+      <workItem from="1713855330707" duration="2231000" />
+      <workItem from="1715236086164" duration="31117000" />
     </task>
     <task id="LOCAL-00001" summary="inicial\">
       <option name="closed" value="true" />
@@ -186,7 +197,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712915205010</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="funcional detalles de propiedades y propietarios">
+      <option name="closed" value="true" />
+      <created>1712918426729</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1712918426729</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,6 +240,15 @@
     <MESSAGE value="funcional subir fotos" />
     <MESSAGE value="funcional registro e inicio de sesion" />
     <MESSAGE value="funcional detalles de propiedades" />
-    <option name="LAST_COMMIT_MESSAGE" value="funcional detalles de propiedades" />
+    <MESSAGE value="funcional detalles de propiedades y propietarios" />
+    <option name="LAST_COMMIT_MESSAGE" value="funcional detalles de propiedades y propietarios" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="Python.DjangoServer">
+        <watch expression="True" />
+        <watch expression="request.resolver_match" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

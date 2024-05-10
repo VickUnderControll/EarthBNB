@@ -26,6 +26,7 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser):
     nombre = models.CharField(max_length=255)
+    foto_perfil = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)  # ¡Recuerda usar un algoritmo seguro para almacenar contraseñas!
 

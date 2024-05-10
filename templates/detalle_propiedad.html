@@ -4,11 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle de Propiedad</title>
-    <!-- Agrega cualquier estilo adicional necesario -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .property-details {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .property-details h2 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .property-details p {
+            margin: 5px 0;
+        }
+
+        .swiper-container {
+            width: 50%;
+            max-width: 50%;
+            margin: 20px auto;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-height: 300px;
+        }
+
+        .swiper-slide img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: none; /* Ocultar todas las imágenes por defecto */
+        }
+
+        .swiper-slide-active img {
+            display: block; /* Mostrar solo la imagen activa */
+        }
+
+        .swiper-button-prev,
+        .swiper-button-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transition: opacity 0.3s;
+            opacity: 0;
+        }
+
+        .swiper-button-prev:hover,
+        .swiper-button-next:hover {
+            opacity: 1;
+        }
+
+        .swiper-button-prev {
+            left: 10px;
+        }
+
+        .swiper-button-next {
+            right: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>Detalle de Propiedad</h1>
-    <div>
+    <div class="property-details">
         <p><strong>Dirección:</strong> {{ propiedad.direccion }}</p>
         <p><strong>Tipo:</strong> {{ propiedad.tipo }}</p>
         <p><strong>Habitaciones:</strong> {{ propiedad.habitaciones }}</p>
@@ -16,12 +103,38 @@
         <p><strong>Metros Cuadrados:</strong> {{ propiedad.metros_cuadrados }}</p>
         <p><strong>Precio:</strong> {{ propiedad.precio }}</p>
         <h2>Fotos:</h2>
-        {% for foto in fotos %}
-            <img src="{{ foto.ruta_foto }}" alt="Foto de la propiedad">
-        {% endfor %}
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                {% for foto in fotos %}
+                    <div class="swiper-slide">
+                        <img src="{{ foto.ruta_foto }}" alt="Foto de la propiedad">
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
         <h2>Propietario:</h2>
         <p><strong>Nombre:</strong> {{ propietario.nombre }}</p>
         <p><strong>Correo electrónico:</strong> {{ propietario.email }}</p>
+        {% if usuario_actual.id == propiedad.propietario.id %}
+            <a href="{% url 'editar_propiedad' propiedad.id %}" class="edit-link">Editar Propiedad</a>
+        {% endif %}
     </div>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
 </body>
 </html>

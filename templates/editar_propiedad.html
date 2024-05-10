@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Propiedad</title>
+</head>
+<body>
+    <h1>Editar Propiedad</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <!-- Aquí deberías incluir los campos del formulario para editar la propiedad -->
+        <!-- El campo propietario no es editable -->
+        <input type="hidden" name="propietario" value="{{ usuario_actual.id }}">
+        <input type="submit" value="Guardar Cambios">
+    </form>
+</body>
+</html>
