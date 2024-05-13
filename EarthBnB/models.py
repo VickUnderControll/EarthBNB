@@ -65,6 +65,8 @@ class Propiedad(models.Model):
     metros_cuadrados = models.DecimalField(max_digits=10, decimal_places=2)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     propietario = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+
+
     class Meta:
         db_table = 'propiedades'
 

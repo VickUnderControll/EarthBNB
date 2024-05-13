@@ -169,9 +169,8 @@ def crear_propiedad(request):
     return render(request, 'crear_propiedad.html', {'form': form})
 
 def editar_propiedad(request, propiedad_id):
-    # Obtener la propiedad existente si el ID se proporciona
-    propiedad = get_object_or_404(Propiedad, id=propiedad_id) if propiedad_id else None
-
+    propiedad = Propiedad.objects.get(pk=propiedad_id)
+    fotos_propiedad = FotosPropiedad.objects.filter(propiedad=propiedad)
     if request.method == 'POST':
         # Si se envía el formulario, instanciar el formulario con los datos enviados
         form = PropiedadForm(request.POST, instance=propiedad)
@@ -184,8 +183,7 @@ def editar_propiedad(request, propiedad_id):
         form = PropiedadForm(instance=propiedad)
 
     # Renderizar la plantilla con el formulario
-    return render(request, 'editar_propiedad.html', {'form': form})
-
+    return render(request, 'editar_propiedad.html', {'propiedad': propiedad, 'fotos_propiedad': fotos_propiedad})
 
 def crear_propiedad(request):
     # Verificar si hay una sesión iniciada

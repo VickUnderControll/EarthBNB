@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Propiedad</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Agregar FontAwesome CSS -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,6 +25,7 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
         .edit-property-form label {
@@ -54,6 +56,50 @@
         .edit-property-form input[type="submit"]:hover {
             background-color: #0056b3;
         }
+
+        .property-photos {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .property-photo {
+            margin-right: 10px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .property-photo img {
+            max-width: 150px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .property-photo img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Estilos para el icono de la basura */
+        .delete-icon {
+            display: none; /* Ocultar inicialmente el icono */
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .delete-icon i {
+            color: red;
+        }
+
+        /* Mostrar el icono al pasar el ratón por encima de la foto */
+        .property-photo:hover .delete-icon {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -76,5 +122,28 @@
             <input type="submit" value="Guardar Cambios">
         </form>
     </div>
+
+    <h2 style="text-align: center;">Fotos de la Propiedad</h2>
+
+    <div class="property-photos">
+        {% for foto in fotos_propiedad %}
+            <div class="property-photo">
+                <img src="{{ foto.ruta_foto }}" alt="Foto de la propiedad">
+                <div class="delete-icon" onclick="deletePhoto({{ foto.id }})">
+                    <i class="fa fa-trash"></i>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function deletePhoto(photoId) {
+            if (confirm('¿Estás seguro de que deseas eliminar esta foto?')) {
+                // Aquí puedes agregar la lógica para eliminar la foto
+                // Puedes hacer una solicitud AJAX o simplemente redirigir a una vista que maneje la eliminación
+                console.log('Eliminar foto con ID:', photoId);
+            }
+        }
+    </script>
 </body>
 </html>
