@@ -41,7 +41,7 @@
             border: 2px solid #ccc; /* Agrega un borde alrededor de cada propiedad */
             border-radius: 5px;
             margin-bottom: 20px; /* Espacio entre cada propiedad */
-            width: 100%; /* Ocupa todo el ancho de la página */
+            width: 100%; /* Ocupa t-odo el ancho de la página */
             box-sizing: border-box; /* Incluye el borde en el cálculo del tamaño */
             display: flex; /* Utiliza flexbox para organizar los elementos */
             background-color: #fff; /* Color de fondo */
@@ -92,6 +92,21 @@
         select:focus, button:focus {
             outline: none; /* Elimina el contorno al enfocar */
         }
+
+        #filtros {
+            width: 20%;
+            height: fit-content;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+            box-sizing: border-box;
+        }
+
+        #ordenar_por {
+            max-width: 100%; /* Ajusta el ancho máximo del desplegable */
+        }
     </style>
 </head>
 <body>
@@ -113,45 +128,47 @@
 </div>
 
 <div id="contenedor" style="display: flex;">
-    <div id="filtros" style="width: 20%;">
+    <div id="filtros">
         <h2>Filtrar por:</h2>
-        <form method="get">
-            <!-- Campos de filtro -->
-            <p>Precio:</p>
-            <input type="number" id="precio_min" name="precio_min" placeholder="Precio mínimo" value="{{ request.GET.precio_min }}">
-            <input type="number" id="precio_max" name="precio_max" placeholder="Precio máximo" value="{{ request.GET.precio_max }}">
-            <br>
-            <br>
-            <label for="habitaciones">Habitaciones:</label>
-            <select id="habitaciones" name="habitaciones">
-                <option value="">Seleccione</option>
-                <option value="1" {% if request.GET.habitaciones == "1" %} selected {% endif %}>1</option>
-                <option value="2" {% if request.GET.habitaciones == "2" %} selected {% endif %}>2</option>
-                <option value="3" {% if request.GET.habitaciones == "3" %} selected {% endif %}>3</option>
-                <option value="4" {% if request.GET.habitaciones == "4" %} selected {% endif %}>4</option>
-                <option value="5" {% if request.GET.habitaciones == "5" %} selected {% endif %}>5+</option>
-            </select>
-            <br><br><br>
+        <div class="filtro-caja">
+            <form method="get">
+                <!-- Campos de filtro -->
+                <p>Precio:</p>
+                <input type="number" id="precio_min" name="precio_min" placeholder="Precio mínimo" value="{{ request.GET.precio_min }}">
+                <input type="number" id="precio_max" name="precio_max" placeholder="Precio máximo" value="{{ request.GET.precio_max }}">
+                <br>
+                <br>
+                <label for="habitaciones">Habitaciones:</label>
+                <select id="habitaciones" name="habitaciones">
+                    <option value="">Seleccione</option>
+                    <option value="1" {% if request.GET.habitaciones == "1" %} selected {% endif %}>1</option>
+                    <option value="2" {% if request.GET.habitaciones == "2" %} selected {% endif %}>2</option>
+                    <option value="3" {% if request.GET.habitaciones == "3" %} selected {% endif %}>3</option>
+                    <option value="4" {% if request.GET.habitaciones == "4" %} selected {% endif %}>4</option>
+                    <option value="5" {% if request.GET.habitaciones == "5" %} selected {% endif %}>5+</option>
+                </select>
+                <br><br><br>
 
-            <p>Metros cuadrados:</p>
-            <input type="number" id="metros_cuadrados_min" name="metros_cuadrados_min" placeholder="Metros cuadrados mínimo" value="{{ request.GET.metros_cuadrados_min }}">
-            <input type="number" id="metros_cuadrados_max" name="metros_cuadrados_max" placeholder="Metros cuadrados máximo" value="{{ request.GET.metros_cuadrados_max }}">
+                <p>Metros cuadrados:</p>
+                <input type="number" id="metros_cuadrados_min" name="metros_cuadrados_min" placeholder="Metros cuadrados mínimo" value="{{ request.GET.metros_cuadrados_min }}">
+                <input type="number" id="metros_cuadrados_max" name="metros_cuadrados_max" placeholder="Metros cuadrados máximo" value="{{ request.GET.metros_cuadrados_max }}">
 
-            <br><br><br>
-            <!-- Campos de orden -->
-            <label for="ordenar_por">Ordenar por:</label>
-            <select name="ordenar_por" id="ordenar_por">
-                <option value="precio" {% if request.GET.ordenar_por == "precio" %} selected {% endif %}>Precio (menor a mayor)</option>
-                <option value="precio_desc" {% if request.GET.ordenar_por == "precio_desc" %} selected {% endif %}>Precio (mayor a menor)</option>
-                <option value="habitaciones" {% if request.GET.ordenar_por == "habitaciones" %} selected {% endif %}>Habitaciones (menor a mayor)</option>
-                <option value="habitaciones_desc" {% if request.GET.ordenar_por == "habitaciones_desc" %} selected {% endif %}>Habitaciones (mayor a menor)</option>
-                <option value="metros_cuadrados" {% if request.GET.ordenar_por == "metros_cuadrados" %} selected {% endif %}>Metros Cuadrados (menor a mayor)</option>
-                <option value="metros_cuadrados_desc" {% if request.GET.ordenar_por == "metros_cuadrados_desc" %} selected {% endif %}>Metros Cuadrados (mayor a menor)</option>
-            </select>
+                <br><br><br>
+                <!-- Campos de orden -->
+                <label for="ordenar_por">Ordenar por:</label>
+                <select name="ordenar_por" id="ordenar_por">
+                    <option value="precio" {% if request.GET.ordenar_por == "precio" %} selected {% endif %}>Precio (menor a mayor)</option>
+                    <option value="precio_desc" {% if request.GET.ordenar_por == "precio_desc" %} selected {% endif %}>Precio (mayor a menor)</option>
+                    <option value="habitaciones" {% if request.GET.ordenar_por == "habitaciones" %} selected {% endif %}>Habitaciones (menor a mayor)</option>
+                    <option value="habitaciones_desc" {% if request.GET.ordenar_por == "habitaciones_desc" %} selected {% endif %}>Habitaciones (mayor a menor)</option>
+                    <option value="metros_cuadrados" {% if request.GET.ordenar_por == "metros_cuadrados" %} selected {% endif %}>Metros Cuadrados (menor a mayor)</option>
+                    <option value="metros_cuadrados_desc" {% if request.GET.ordenar_por == "metros_cuadrados_desc" %} selected {% endif %}>Metros Cuadrados (mayor a menor)</option>
+                </select>
 
-            <button type="submit">Aplicar</button>
+                <button type="submit">Aplicar</button>
 
-        </form>
+            </form>
+        </div>
     </div>
     <div id="resto" style="width: 80%;">
         {% for item in propiedades_con_fotos %}

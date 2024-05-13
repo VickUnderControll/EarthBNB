@@ -1,9 +1,16 @@
 
 from django import forms
-from .models import CustomUser  # Importa el modelo de usuario personalizado
+from .models import CustomUser,Propiedad
+from .models import CustomUser,Propiedad
+
 
 class ImageUploadForm(forms.Form):
     image = forms.ImageField()
+
+class PropiedadForm(forms.ModelForm):
+    class Meta:
+        model = Propiedad
+        fields = ['direccion', 'tipo', 'habitaciones', 'banos', 'metros_cuadrados', 'precio']
 
 class LoginForm(forms.Form):
     email = forms.EmailField(label='Email')

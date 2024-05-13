@@ -116,7 +116,7 @@
                 <p><strong>Metros Cuadrados:</strong> {{ propiedad.propiedad.metros_cuadrados }}</p>
                 <p><strong>Precio:</strong> {{ propiedad.propiedad.precio }}</p>
                 <!-- Botón de edición con icono FontAwesome -->
-                <a href="{% url 'detalle_propiedad' propiedad_id=propiedad.propiedad.id %}"><button class="editar-btn">
+                <a href="{% url 'editar_propiedad' propiedad_id=propiedad.propiedad.id %}"><button class="editar-btn">
                         <i class="fas fa-sharp fa-light fa-pen editar-icon"></i>
                         Editar
                     </button>

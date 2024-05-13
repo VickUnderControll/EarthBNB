@@ -1,7 +1,7 @@
-
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from .models import CustomUser, Propiedad, FotosPropiedad
-from .forms import LoginForm, RegistrationForm, ImageUploadForm
+from .forms import LoginForm, RegistrationForm, ImageUploadForm, PropiedadForm
 from .Imgur.imgur_utils import upload_image_to_imgur
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -48,7 +48,7 @@ def register_view(request):
         form = RegistrationForm()
     return render(request, 'registration_form.html', {'form': form})
 
-def mi_vista(request):
+def fotos(request):
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
@@ -130,26 +130,94 @@ def detalle_propiedad(request, propiedad_id):
     usuario_actual = sesion_iniciada
     return render(request, 'detalle_propiedad.html', {'propiedad': propiedad, "usuario_actual_iniciado": usuario_actual, 'fotos': fotos, 'propietario': propietario, 'usuario_actual': request.session.get('user_id')})
 
+
+
 def crear_propiedad(request):
+    # Verificar si hay una sesión iniciada
+    if not request.session.get('sesion_iniciada'):
+        # Si no hay sesión iniciada, redirigir al inicio de sesión
+        return redirect('login')  # Ajusta el nombre de la URL según tu configuración
+
     if request.method == 'POST':
-        nueva_propiedad = Propiedad(
-            # Completa con otros campos del modelo
-            propietario=request.user
+        # Si se envió un formulario POST, procesar los datos
+        direccion = request.POST.get('direccion')
+        tipo = request.POST.get('tipo')
+        habitaciones = request.POST.get('habitaciones')
+        banos = request.POST.get('banos')
+        metros_cuadrados = request.POST.get('metros_cuadrados')
+        precio = request.POST.get('precio')
+
+        # Obtener el ID del propietario desde la sesión iniciada
+        propietario_id = request.session.get('sesion_iniciada')
+
+        # Crear la propiedad en la base de datos
+        propiedad = Propiedad.objects.create(
+            direccion=direccion,
+            tipo=tipo,
+            habitaciones=habitaciones,
+            banos=banos,
+            metros_cuadrados=metros_cuadrados,
+            precio=precio,
+            propietario_id=propietario_id
         )
-        nueva_propiedad.save()
-        return redirect('detalle_propiedad', propiedad_id=nueva_propiedad.id)
-    else:
-        return render(request, 'crear_propiedad.html')
+
+        # Redirigir a la página de detalle de la propiedad creada
+        return redirect('detalle_propiedad', propiedad_id=propiedad.id)  # Ajusta el nombre de la URL según tu configuración
+
+    # Si no se envió un formulario POST, renderizar el formulario para crear la propiedad
+    form = ImageUploadForm()
+    return render(request, 'crear_propiedad.html', {'form': form})
 
 def editar_propiedad(request, propiedad_id):
-    propiedad = get_object_or_404(Propiedad, pk=propiedad_id)
-    if propiedad.propietario != request.user:
-        return redirect('pagina_de_error')
+    # Obtener la propiedad existente si el ID se proporciona
+    propiedad = get_object_or_404(Propiedad, id=propiedad_id) if propiedad_id else None
+
     if request.method == 'POST':
-        # Procesar el formulario de edición de la propiedad
-        # ...
-        return redirect('detalle_propiedad', propiedad_id=propiedad.id)
+        # Si se envía el formulario, instanciar el formulario con los datos enviados
+        form = PropiedadForm(request.POST, instance=propiedad)
+        if form.is_valid():
+            # Guardar los cambios si el formulario es válido
+            form.save()
+            return redirect('/propiedad/'+ str(propiedad_id))  # Redirigir a la página deseada después de guardar los cambios
     else:
-        # Mostrar el formulario de edición de la propiedad
-        # ...
-        return render(request, 'editar_propiedad.html', {'propiedad': propiedad})
+        # Si no se envió el formulario, crear un nuevo formulario con la instancia de la propiedad
+        form = PropiedadForm(instance=propiedad)
+
+    # Renderizar la plantilla con el formulario
+    return render(request, 'editar_propiedad.html', {'form': form})
+
+
+def crear_propiedad(request):
+    # Verificar si hay una sesión iniciada
+    if not request.session.get('sesion_iniciada'):
+        # Si no hay sesión iniciada, redirigir al inicio de sesión
+        return redirect('login')  # Ajusta el nombre de la URL según tu configuración
+
+    if request.method == 'POST':
+        # Si se envió un formulario POST, procesar los datos
+        direccion = request.POST.get('direccion')
+        tipo = request.POST.get('tipo')
+        habitaciones = request.POST.get('habitaciones')
+        banos = request.POST.get('banos')
+        metros_cuadrados = request.POST.get('metros_cuadrados')
+        precio = request.POST.get('precio')
+
+        # Obtener el ID del propietario desde la sesión iniciada
+        propietario_id = request.session.get('sesion_iniciada')
+
+        # Crear la propiedad en la base de datos
+        propiedad = Propiedad.objects.create(
+            direccion=direccion,
+            tipo=tipo,
+            habitaciones=habitaciones,
+            banos=banos,
+            metros_cuadrados=metros_cuadrados,
+            precio=precio,
+            propietario_id=sesion_iniciada
+        )
+
+        # Redirigir a la página de detalle de la propiedad creada
+        return redirect('detalle_propiedad', propiedad_id=propiedad.id)  # Ajusta el nombre de la URL según tu configuración
+
+    # Si no se envió un formulario POST, renderizar el formulario para crear la propiedad
+    return render(request, 'crea_propiedad.html')

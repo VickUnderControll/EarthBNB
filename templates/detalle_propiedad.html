@@ -91,6 +91,19 @@
         .swiper-button-next {
             right: 10px;
         }
+
+        .edit-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+            transition: color 0.3s;
+        }
+
+        .edit-link:hover {
+            color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -117,7 +130,7 @@
         <h2>Propietario:</h2>
         <p><strong>Nombre:</strong> {{ propietario.nombre }}</p>
         <p><strong>Correo electrónico:</strong> {{ propietario.email }}</p>
-        {% if usuario_actual.id == propiedad.propietario.id %}
+        {% if usuario_actual_iniciado == propiedad.propietario_id %}
             <a href="{% url 'editar_propiedad' propiedad.id %}" class="edit-link">Editar Propiedad</a>
         {% endif %}
     </div>

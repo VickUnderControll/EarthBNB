@@ -4,15 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Propiedad</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .edit-property-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .edit-property-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .edit-property-form input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .edit-property-form input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .edit-property-form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <h1>Editar Propiedad</h1>
-    <form method="POST">
-        {% csrf_token %}
-        <!-- Aquí deberías incluir los campos del formulario para editar la propiedad -->
-        <!-- El campo propietario no es editable -->
-        <input type="hidden" name="propietario" value="{{ usuario_actual.id }}">
-        <input type="submit" value="Guardar Cambios">
-    </form>
+    <div class="edit-property-form">
+        <form method="post">
+            {% csrf_token %}
+            <label for="direccion">Dirección:</label>
+            <input type="text" id="direccion" name="direccion" value="{{ form.instance.direccion }}">
+            <label for="tipo">Tipo:</label>
+            <input type="text" id="tipo" name="tipo" value="{{ form.instance.tipo }}">
+            <label for="habitaciones">Habitaciones:</label>
+            <input type="number" id="habitaciones" name="habitaciones" value="{{ form.instance.habitaciones }}">
+            <label for="banos">Baños:</label>
+            <input type="number" id="banos" name="banos" value="{{ form.instance.banos }}">
+            <label for="metros_cuadrados">Metros Cuadrados:</label>
+            <input type="number" id="metros_cuadrados" name="metros_cuadrados" value="{{ form.instance.metros_cuadrados }}">
+            <label for="precio">Precio:</label>
+            <input type="number" id="precio" name="precio" value="{{ form.instance.precio }}">
+            <input type="submit" value="Guardar Cambios">
+        </form>
+    </div>
 </body>
 </html>
