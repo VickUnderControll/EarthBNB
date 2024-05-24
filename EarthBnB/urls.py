@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
 
 urlpatterns = [
@@ -13,4 +13,7 @@ urlpatterns = [
     path('cerrar_sesion/', views.cerrar_sesion, name='cerrar_sesion'),
     path('crea_propiedad/', views.crear_propiedad, name='crear_propiedad'),
     path('listado/', views.lista_propiedades_propietario, name='listado'),
+    path('guardar_fotos/<int:propiedad_id>/', views.guardar_foto, name='guardar_foto'),
+    path('eliminar_foto/<int:foto_id>/', views.eliminar_foto, name='eliminar_foto'),
+
 ]

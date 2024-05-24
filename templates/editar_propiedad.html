@@ -103,7 +103,6 @@
     </style>
 </head>
 <body>
-    <h1>Editar Propiedad</h1>
     <div class="edit-property-form">
         <form method="post">
             {% csrf_token %}
@@ -127,7 +126,7 @@
 
     <div class="property-photos">
         {% for foto in fotos_propiedad %}
-            <div class="property-photo">
+            <div class="property-photo" id="photo-{{ foto.id }}">
                 <img src="{{ foto.ruta_foto }}" alt="Foto de la propiedad">
                 <div class="delete-icon" onclick="deletePhoto({{ foto.id }})">
                     <i class="fa fa-trash"></i>
@@ -135,15 +134,110 @@
             </div>
         {% endfor %}
     </div>
+    <form method="post" enctype="multipart/form-data" onsubmit="return false;">
+        {% csrf_token %}
+        <!-- Campos existentes de la propiedad -->
+        <label for="fotos">Agregar Fotos:</label>
+        <input type="file" id="fotos" name="fotos" accept="image/*" multiple>
+        <button onclick="guardarFotos()">Guardar Fotos</button>
+    </form>
 
     <script>
         function deletePhoto(photoId) {
             if (confirm('¿Estás seguro de que deseas eliminar esta foto?')) {
-                // Aquí puedes agregar la lógica para eliminar la foto
-                // Puedes hacer una solicitud AJAX o simplemente redirigir a una vista que maneje la eliminación
-                console.log('Eliminar foto con ID:', photoId);
+                fetch(`/eliminar_foto/${photoId}/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                    
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Eliminar la foto de la interfaz de usuario si la eliminación es exitosa
+                        const photoElement = document.getElementById(`photo-${photoId}`);
+                        photoElement.remove();
+                    }else{
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                   // console.error('Error al eliminar la foto:', error);
+                });
             }
         }
-    </script>
+        function deletePhotoList(photoId) {
+                fetch(`/eliminar_foto/${photoId}/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                    
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Eliminar la foto de la interfaz de usuario si la eliminación es exitosa
+                        const photoElement = document.getElementById(`photo-${photoId}`);
+                        photoElement.remove();
+                    }else{
+                        location.reload();
+                    }
+                })
+                .catch(error => {
+                   // console.error('Error al eliminar la foto:', error);
+                });
+            
+        }
+        
+        function guardarFotos() {
+            const formData = new FormData();
+            const inputFiles = document.getElementById('fotos').files;
+            for (let i = 0; i < inputFiles.length; i++) {
+                formData.append('fotos', inputFiles[i]);
+            }
+            fetch('/guardar_fotos/{{ propiedad.id }}/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Limpiar la lista de fotos existente
+                    const photoContainer = document.querySelector('.property-photos');
+                   
+        
+                    // Agregar las fotos recién subidas
+                    const newImg = document.createElement('img');
+                    newImg.src = data.image_links;
+                    console.log(data.image_links)
+                    newImg.alt = 'Nueva foto de la propiedad';
+                    const newPhotoDiv = document.createElement('div');
+                    newPhotoDiv.classList.add('property-photo');
+                    newPhotoDiv.appendChild(newImg);
+                     const deleteIcon = document.createElement('div');
+                    deleteIcon.classList.add('delete-icon');
+                    deleteIcon.innerHTML = '<i class="fa fa-trash"></i>';
+                    deleteIcon.addEventListener('click', function() {
+                        deletePhoto(data.idFoto); // Llama a la función para eliminar la foto
+                        deletePhotoList(data.idFoto); // Llama a la función para eliminar la foto
+                         });
+                    newPhotoDiv.appendChild(deleteIcon);
+                    photoContainer.appendChild(newPhotoDiv);
+                } else {
+                    alert('Error al guardar las fotos: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error al guardar las fotos:', error);
+            });
+        }
+</script>
+
+
 </body>
 </html>

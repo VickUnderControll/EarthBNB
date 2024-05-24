@@ -4,11 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23733df9-f98d-4eb8-b9ac-46656b0772b2" name="Changes" comment="crea y edita sin fotos">
+    <list default="true" id="23733df9-f98d-4eb8-b9ac-46656b0772b2" name="Changes" comment="muestra fotos en edicion">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EarthBnB/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/EarthBnB/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EarthBnB/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/EarthBnB/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EarthBnB/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/EarthBnB/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/editar_propiedad.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/editar_propiedad.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/lista_propiedades.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/lista_propiedades.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,31 +58,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
-    &quot;Django Server.EarthBnB.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;principal&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Django Server.EarthBnB.executor": "Run",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "django.template.preview.state": "SHOW_EDITOR",
+    "git-widget-placeholder": "principal",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mariadb&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Proyectos\EarthBnB\EarthBnB" />
@@ -141,7 +142,8 @@
       <workItem from="1713855330707" duration="2231000" />
       <workItem from="1715236086164" duration="36379000" />
       <workItem from="1715346016137" duration="143000" />
-      <workItem from="1715580988011" duration="9786000" />
+      <workItem from="1715580988011" duration="20467000" />
+      <workItem from="1716531922772" duration="11187000" />
     </task>
     <task id="LOCAL-00001" summary="inicial\">
       <option name="closed" value="true" />
@@ -223,7 +225,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715591090778</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="muestra fotos en edicion">
+      <option name="closed" value="true" />
+      <created>1715593007189</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1715593007189</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -261,13 +271,24 @@
     <MESSAGE value="funcional detalles de propiedades y propietarios" />
     <MESSAGE value="la hostia de cambios, se me ha pasado subir muchos cambios" />
     <MESSAGE value="crea y edita sin fotos" />
-    <option name="LAST_COMMIT_MESSAGE" value="crea y edita sin fotos" />
+    <MESSAGE value="muestra fotos en edicion" />
+    <option name="LAST_COMMIT_MESSAGE" value="muestra fotos en edicion" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/EarthBnB/views.py</url>
+          <line>200</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="Python.DjangoServer">
         <watch expression="True" />
         <watch expression="request.resolver_match" />
+        <watch expression="request" />
       </configuration>
     </watches-manager>
   </component>

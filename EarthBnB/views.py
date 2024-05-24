@@ -1,12 +1,11 @@
-from django.http import HttpResponse
+
 from django.shortcuts import get_object_or_404
 from .models import CustomUser, Propiedad, FotosPropiedad
 from .forms import LoginForm, RegistrationForm, ImageUploadForm, PropiedadForm
 from .Imgur.imgur_utils import upload_image_to_imgur
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.contrib.auth import update_session_auth_hash
-from django.contrib.auth.forms import PasswordChangeForm
+from django.http import JsonResponse
 sesion_iniciada=0
 
 
@@ -168,22 +167,52 @@ def crear_propiedad(request):
     form = ImageUploadForm()
     return render(request, 'crear_propiedad.html', {'form': form})
 
+
 def editar_propiedad(request, propiedad_id):
     propiedad = Propiedad.objects.get(pk=propiedad_id)
     fotos_propiedad = FotosPropiedad.objects.filter(propiedad=propiedad)
     if request.method == 'POST':
-        # Si se envía el formulario, instanciar el formulario con los datos enviados
+        # Procesar el formulario de la propiedad
         form = PropiedadForm(request.POST, instance=propiedad)
         if form.is_valid():
-            # Guardar los cambios si el formulario es válido
             form.save()
-            return redirect('/propiedad/'+ str(propiedad_id))  # Redirigir a la página deseada después de guardar los cambios
+        # Procesar la subida de fotos
+        form_fotos = ImageUploadForm(request.POST, request.FILES)
+        if form_fotos.is_valid():
+            for foto in request.FILES.getlist('fotos'):
+                FotosPropiedad.objects.create(propiedad=propiedad, foto=foto)
+        return redirect('/propiedad/'+ str(propiedad_id))  # Redirigir a la página deseada después de guardar los cambios
     else:
         # Si no se envió el formulario, crear un nuevo formulario con la instancia de la propiedad
         form = PropiedadForm(instance=propiedad)
+        form_fotos = ImageUploadForm()  # Formulario para la subida de fotos
 
     # Renderizar la plantilla con el formulario
-    return render(request, 'editar_propiedad.html', {'propiedad': propiedad, 'fotos_propiedad': fotos_propiedad})
+    return render(request, 'editar_propiedad.html', {'propiedad': propiedad, 'fotos_propiedad': fotos_propiedad, 'form': form, 'form_fotos': form_fotos})
+
+
+def guardar_foto(request, propiedad_id):
+ #metodo de carga de foto y obtencion de enlace#
+
+        image_data = request.FILES['fotos'].read()
+        image_link = upload_image_to_imgur(image_data)
+        if image_link:
+            test=FotosPropiedad.objects.create(propiedad_id=propiedad_id, ruta_foto=image_link)
+            return JsonResponse({'success': True, 'image_links': image_link, 'idFoto' :test.id})
+        else:
+            return JsonResponse({'success': False, 'error': 'Error al cargar las fotos'})
+
+
+
+def eliminar_foto(request, foto_id):
+    try:
+        foto = FotosPropiedad.objects.get(pk=foto_id)
+        foto.delete()
+        return JsonResponse({'success': True})
+    except FotosPropiedad.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'La foto no existe'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
 
 def crear_propiedad(request):
     # Verificar si hay una sesión iniciada
