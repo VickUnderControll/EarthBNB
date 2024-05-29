@@ -1,2 +1,3 @@
 This is a private, and personal project, cloning the famous app/website AirBnB. Its made for put in practice some tecnologies witch dont know so much about it, like using Frameworks like Django in Python, using apis like imgur, use a DataBase like MariaDB....
  
+!!!!!!NO COMERCIAL INTENDED!!!!!!!!!
