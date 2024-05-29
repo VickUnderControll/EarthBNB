@@ -2,6 +2,7 @@
 from django.shortcuts import get_object_or_404
 from .models import CustomUser, Propiedad, FotosPropiedad
 from .forms import LoginForm, RegistrationForm, ImageUploadForm, PropiedadForm
+from django.contrib.auth import update_session_auth_hash
 from .Imgur.imgur_utils import upload_image_to_imgur
 from django.contrib import messages
 from django.shortcuts import render, redirect
@@ -216,8 +217,9 @@ def eliminar_foto(request, foto_id):
 
 def crear_propiedad(request):
     # Verificar si hay una sesión iniciada
-    if not request.session.get('sesion_iniciada'):
+
         # Si no hay sesión iniciada, redirigir al inicio de sesión
+    if(sesion_iniciada==0):
         return redirect('login')  # Ajusta el nombre de la URL según tu configuración
 
     if request.method == 'POST':
@@ -248,3 +250,89 @@ def crear_propiedad(request):
 
     # Si no se envió un formulario POST, renderizar el formulario para crear la propiedad
     return render(request, 'crea_propiedad.html')
+
+
+def eliminar_foto_perfil(request, usuario_id):
+    try:
+        usuario = CustomUser.objects.get(pk=usuario_id)
+        usuario.foto_perfil = ''
+        usuario.save()
+        return JsonResponse({'success': True})
+    except CustomUser.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Usuario no encontrado'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+
+def editar_foto_perfil(request, usuario_id):
+    if 'foto' not in request.FILES:
+        return JsonResponse({'success': False, 'error': 'No se ha subido ninguna foto'})
+
+    image_data = request.FILES['foto'].read()
+    image_link = upload_image_to_imgur(image_data)
+
+    if image_link:
+        try:
+            usuario = CustomUser.objects.get(id=usuario_id)
+            usuario.foto_perfil = image_link
+            usuario.save()
+            return JsonResponse({'success': True, 'nueva_foto_url': image_link})
+        except CustomUser.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Usuario no encontrado'})
+    else:
+        return JsonResponse({'success': False, 'error': 'Error al cargar la foto a Imgur'})
+
+
+def eliminar_propiedad(request, propiedad_id):
+    try:
+        propiedad = get_object_or_404(Propiedad, pk=propiedad_id)
+        propiedad.delete()
+        return JsonResponse({'success': True})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+    return None
+
+
+def editar_usuario(request):
+    if(sesion_iniciada==0):
+        return redirect('login')
+    user =  CustomUser.objects.get(id=sesion_iniciada)
+
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        email = request.POST.get('email')
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        # Validación de campos obligatorios
+        if not nombre or not email:
+            return render(request, 'editar_usuario.html',
+                          {'usuario': user, 'error': 'Nombre y Email son campos obligatorios.'})
+
+        # Actualizar nombre y email
+        user.first_name = nombre
+        user.email = email
+
+        # Validar y actualizar la contraseña si se proporcionan las nuevas contraseñas
+        if new_password or confirm_password:
+            if new_password != confirm_password:
+                return render(request, 'editar_usuario.html',
+                              {'usuario': user, 'error': 'Las nuevas contraseñas no coinciden.'})
+
+            if not user.password==current_password:
+                return render(request, 'editar_usuario.html',
+                              {'usuario': user, 'error': 'La contraseña actual es incorrecta.'})
+
+            user.password=new_password
+
+        user.save()
+
+        # Actualizar la sesión para mantener al usuario autenticado si la contraseña ha cambiado
+        if new_password:
+            update_session_auth_hash(request, user)
+
+        return render(request, 'usuario.html', {'usuario': user, 'success': 'Perfil actualizado con éxito.'})
+
+    return render(request, 'editar_usuario.html', {'usuario': user})

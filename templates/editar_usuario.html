@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil de Usuario</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .required {
+            color: red;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .password-group {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+        }
+        .toggle-password {
+            float: right;
+            margin-right: 10px;
+            margin-top: -25px;
+            position: relative;
+            z-index: 2;
+            cursor: pointer;
+        }
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Editar Perfil de Usuario</h1>
+    <form id="editar-perfil-form" method="post" action="{% url 'editar_usuario' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="nombre">Nombre <span class="required">*</span></label>
+            <input type="text" id="nombre" name="nombre" value="{{ usuario.nombre }}" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email <span class="required">*</span></label>
+            <input type="email" id="email" name="email" value="{{ usuario.email }}" required>
+        </div>
+        <div class="password-group">
+            <div class="form-group">
+                <label for="current-password">Contraseña Actual</label>
+                <input type="password" id="current-password" name="current_password">
+                <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('current-password')"></i>
+            </div>
+            <div class="form-group">
+                <label for="new-password">Nueva Contraseña</label>
+                <input type="password" id="new-password" name="new_password">
+                <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('new-password')"></i>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirmar Nueva Contraseña</label>
+                <input type="password" id="confirm-password" name="confirm_password">
+                <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility('confirm-password')"></i>
+            </div>
+        </div>
+        <button type="submit" class="btn">Guardar Cambios</button>
+    </form>
+</div>
+
+<script>
+    function togglePasswordVisibility(fieldId) {
+        const field = document.getElementById(fieldId);
+        const type = field.type === 'password' ? 'text' : 'password';
+        field.type = type;
+
+        const icon = field.nextElementSibling;
+        icon.classList.toggle('fa-eye');
+        icon.classList.toggle('fa-eye-slash');
+    }
+
+    document.getElementById('editar-perfil-form').addEventListener('submit', function(event) {
+        const newPassword = document.getElementById('new-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+
+        if (newPassword && newPassword !== confirmPassword) {
+            event.preventDefault();
+            alert('Las nuevas contraseñas no coinciden.');
+        }
+    });
+
+    window.onload = function() {
+        const error = "{{ error|escapejs }}";
+        const success = "{{ success|escapejs }}";
+        if (error) {
+            alert(error);
+        }
+        if (success) {
+            alert(success);
+        }
+    };
+</script>
+</body>
+</html>

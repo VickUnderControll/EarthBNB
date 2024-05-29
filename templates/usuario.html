@@ -6,7 +6,6 @@
     <title>Perfil de Usuario</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Estilos CSS aquí */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -84,6 +83,20 @@
         .menu-dropdown a:hover {
             color: #007bff;
         }
+        .password-container {
+            position: relative;
+            display: inline-block;
+        }
+        .password-container input {
+            padding-right: 30px;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -91,7 +104,7 @@
         <div class="menu">
             <a href="{% url 'lista' %}"><i class="fas fa-home"></i> Inicio</a>
             <a href="{% url 'listado' %}"><i class="fas fa-list"></i> Listar Propiedades</a>
-            <a href="#"><i class="fas fa-user-edit"></i> Editar Información</a>
+            <a href="{% url 'editar_usuario' %}"><i class="fas fa-user-edit"></i> Editar Información</a>
             <a href="{% url 'crear_propiedad' %}"><i class="fas fa-plus"></i> Crear Propiedad</a>
             <a href="{% url 'cerrar_sesion' %}"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
         </div>
@@ -107,20 +120,100 @@
                         {% endif %}
                     </div>
                     <div class="menu-dropdown" id="menu-dropdown">
-                        <a href="#">Editar Foto</a>
-                        <a href="#">Eliminar Foto</a>
+                        <a href="#" id="editar-foto">Editar Foto</a>
+                        <a href="#" id="eliminar-foto">Eliminar Foto</a>
                     </div>
                 </div>
                 <h2>Información del Usuario</h2>
                 <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
                 <p><strong>Email:</strong> {{ usuario.email }}</p>
-                <p><strong>Contraseña:</strong> {{ usuario.password }}</p>
+             <p><strong>Contraseña:</strong></p>
+                <div class="password-container">
+                    <input type="password" id="password" value="{{ usuario.password }}" readonly>
+                    <i class="fas fa-eye toggle-password" id="toggle-password"></i>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Modal para subir nueva foto -->
+    <div id="modal-subir-foto" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+        <div style="background:white; padding:20px; border-radius:5px;">
+            <h2>Subir nueva foto</h2>
+            <form id="form-subir-foto" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" id="nueva-foto" name="foto" accept="image/*" required>
+                <button type="submit">Subir</button>
+                <button type="button" id="cancelar-subir-foto">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
     <script>
         document.getElementById("avatar").addEventListener("click", function() {
             document.getElementById("menu-dropdown").classList.toggle("show");
+        });
+
+        document.getElementById("editar-foto").addEventListener("click", function() {
+            document.getElementById("modal-subir-foto").style.display = "flex";
+        });
+
+        document.getElementById("cancelar-subir-foto").addEventListener("click", function() {
+            document.getElementById("modal-subir-foto").style.display = "none";
+        });
+
+        document.getElementById("form-subir-foto").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch('/editar_foto_perfil/{{ usuario.id }}/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelector('#avatar img').src = data.nueva_foto_url;
+                    document.getElementById("modal-subir-foto").style.display = "none";
+                } else {
+                    alert('Error al subir la foto: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error al subir la foto:', error);
+            });
+        });
+
+        document.getElementById("eliminar-foto").addEventListener("click", function() {
+            if (confirm('¿Estás seguro de que deseas eliminar la foto de perfil?')) {
+                fetch('/eliminar_foto_perfil/{{ usuario.id }}/', {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.querySelector('#avatar img').src = 'https://www.thematicland.com/wp-content/uploads/2021/08/202-2022264_usuario-annimo-usuario-annimo-user-icon-png-transparent.png';
+                    } else {
+                        alert('Error al eliminar la foto: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error al eliminar la foto:', error);
+                });
+            }
+        });
+
+        document.getElementById("toggle-password").addEventListener("click", function() {
+            const passwordField = document.getElementById("password");
+            const type = passwordField.type === "password" ? "text" : "password";
+            passwordField.type = type;
+            this.classList.toggle("fa-eye");
+            this.classList.toggle("fa-eye-slash");
         });
     </script>
 </body>

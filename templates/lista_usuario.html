@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Propiedades</title>
-    <!-- Agrega el enlace a FontAwesome si no lo tienes incluido -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Estilos CSS aquí */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -74,21 +72,39 @@
             margin: 5px 0;
         }
 
-        .editar-btn {
-            background-color: #007bff;
+        .botones {
+            display: flex;
+            gap: 10px;
+        }
+
+        .editar-btn, .borrar-btn {
             color: #fff;
             border: none;
             border-radius: 4px;
             padding: 5px 10px;
             cursor: pointer;
             transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+
+        .editar-btn {
+            background-color: #007bff;
         }
 
         .editar-btn:hover {
             background-color: #0056b3;
         }
 
-        .editar-icon {
+        .borrar-btn {
+            background-color: #dc3545;
+        }
+
+        .borrar-btn:hover {
+            background-color: #c82333;
+        }
+
+        .icon {
             margin-right: 5px;
         }
     </style>
@@ -104,7 +120,7 @@
 <div id="resto">
     {% if propiedades %}
         {% for propiedad in propiedades %}
-        <div class="propiedad">
+        <div class="propiedad" data-id="{{ propiedad.propiedad.id }}">
             <div class="imagen">
                 <img src="{{ propiedad.fotos.first.ruta_foto }}" alt="Foto de la propiedad">
             </div>
@@ -115,12 +131,17 @@
                 <p><strong>Baños:</strong> {{ propiedad.propiedad.banos }}</p>
                 <p><strong>Metros Cuadrados:</strong> {{ propiedad.propiedad.metros_cuadrados }}</p>
                 <p><strong>Precio:</strong> {{ propiedad.propiedad.precio }}</p>
-                <!-- Botón de edición con icono FontAwesome -->
-                <a href="{% url 'editar_propiedad' propiedad_id=propiedad.propiedad.id %}"><button class="editar-btn">
-                        <i class="fas fa-sharp fa-light fa-pen editar-icon"></i>
-                        Editar
+                <div class="botones">
+                    <a href="{% url 'editar_propiedad' propiedad_id=propiedad.propiedad.id %}"><button class="editar-btn">
+                            <i class="fas fa-pen icon"></i>
+                            Editar
+                        </button>
+                    </a>
+                    <button class="borrar-btn" onclick="eliminarPropiedad({{ propiedad.propiedad.id }})">
+                        <i class="fas fa-trash icon"></i>
+                        Eliminar
                     </button>
-                </a>
+                </div>
             </div>
         </div>
         {% endfor %}
@@ -128,5 +149,29 @@
         <p>No tienes ninguna propiedad.</p>
     {% endif %}
 </div>
+
+<script>
+    function eliminarPropiedad(propiedadId) {
+        if (confirm('¿Estás seguro de que deseas eliminar esta propiedad?')) {
+            fetch(`/eliminar_propiedad/${propiedadId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.querySelector(`.propiedad[data-id="${propiedadId}"]`).remove();
+                } else {
+                    alert('Error al eliminar la propiedad: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error al eliminar la propiedad:', error);
+            });
+        }
+    }
+</script>
 </body>
 </html>
