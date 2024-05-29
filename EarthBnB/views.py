@@ -115,6 +115,8 @@ def usuario(request):
 
 
 def lista_propiedades_propietario(request):
+    if (sesion_iniciada == 0):
+        return redirect('login')
     propiedades_propietario = Propiedad.objects.filter(propietario_id=sesion_iniciada)
     propiedades_con_fotos = []
     for propiedad in propiedades_propietario:
@@ -133,10 +135,8 @@ def detalle_propiedad(request, propiedad_id):
 
 
 def crear_propiedad(request):
-    # Verificar si hay una sesión iniciada
-    if not request.session.get('sesion_iniciada'):
-        # Si no hay sesión iniciada, redirigir al inicio de sesión
-        return redirect('login')  # Ajusta el nombre de la URL según tu configuración
+    if (sesion_iniciada == 0):
+        return redirect('login')
 
     if request.method == 'POST':
         # Si se envió un formulario POST, procesar los datos
@@ -170,6 +170,8 @@ def crear_propiedad(request):
 
 
 def editar_propiedad(request, propiedad_id):
+    if (sesion_iniciada == 0):
+        return redirect('login')
     propiedad = Propiedad.objects.get(pk=propiedad_id)
     fotos_propiedad = FotosPropiedad.objects.filter(propiedad=propiedad)
     if request.method == 'POST':
@@ -193,8 +195,8 @@ def editar_propiedad(request, propiedad_id):
 
 
 def guardar_foto(request, propiedad_id):
- #metodo de carga de foto y obtencion de enlace#
-
+    if (sesion_iniciada == 0):
+        return redirect('login')
         image_data = request.FILES['fotos'].read()
         image_link = upload_image_to_imgur(image_data)
         if image_link:
@@ -206,6 +208,8 @@ def guardar_foto(request, propiedad_id):
 
 
 def eliminar_foto(request, foto_id):
+    if (sesion_iniciada == 0):
+        return redirect('login')
     try:
         foto = FotosPropiedad.objects.get(pk=foto_id)
         foto.delete()
@@ -216,9 +220,6 @@ def eliminar_foto(request, foto_id):
         return JsonResponse({'success': False, 'error': str(e)})
 
 def crear_propiedad(request):
-    # Verificar si hay una sesión iniciada
-
-        # Si no hay sesión iniciada, redirigir al inicio de sesión
     if(sesion_iniciada==0):
         return redirect('login')  # Ajusta el nombre de la URL según tu configuración
 
@@ -253,6 +254,8 @@ def crear_propiedad(request):
 
 
 def eliminar_foto_perfil(request, usuario_id):
+    if (sesion_iniciada == 0):
+        return redirect('login')
     try:
         usuario = CustomUser.objects.get(pk=usuario_id)
         usuario.foto_perfil = ''
@@ -265,6 +268,8 @@ def eliminar_foto_perfil(request, usuario_id):
 
 
 def editar_foto_perfil(request, usuario_id):
+    if (sesion_iniciada == 0):
+        return redirect('login')
     if 'foto' not in request.FILES:
         return JsonResponse({'success': False, 'error': 'No se ha subido ninguna foto'})
 
@@ -284,6 +289,8 @@ def editar_foto_perfil(request, usuario_id):
 
 
 def eliminar_propiedad(request, propiedad_id):
+    if (sesion_iniciada == 0):
+        return redirect('login')
     try:
         propiedad = get_object_or_404(Propiedad, pk=propiedad_id)
         propiedad.delete()
