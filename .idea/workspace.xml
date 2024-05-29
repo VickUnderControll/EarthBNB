@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23733df9-f98d-4eb8-b9ac-46656b0772b2" name="Changes" comment="fin edicion, funciona todo">
-      <change afterPath="$PROJECT_DIR$/templates/editar_usuario.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EarthBnB/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/EarthBnB/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EarthBnB/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/EarthBnB/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/lista_usuario.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/lista_usuario.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/usuario.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/usuario.html" afterDir="false" />
-    </list>
+    <list default="true" id="23733df9-f98d-4eb8-b9ac-46656b0772b2" name="Changes" comment="VERSION FINAL, FALTARIA LIMPIAR DE ERRORES PERO VERSION 1.0" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -145,7 +138,7 @@
       <workItem from="1715346016137" duration="143000" />
       <workItem from="1715580988011" duration="20467000" />
       <workItem from="1716531922772" duration="13322000" />
-      <workItem from="1716963727244" duration="6331000" />
+      <workItem from="1716963727244" duration="6743000" />
     </task>
     <task id="LOCAL-00001" summary="inicial\">
       <option name="closed" value="true" />
@@ -243,7 +236,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716546463715</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="VERSION FINAL, FALTARIA LIMPIAR DE ERRORES PERO VERSION 1.0">
+      <option name="closed" value="true" />
+      <created>1716971438664</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1716971438664</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,7 +284,8 @@
     <MESSAGE value="crea y edita sin fotos" />
     <MESSAGE value="muestra fotos en edicion" />
     <MESSAGE value="fin edicion, funciona todo" />
-    <option name="LAST_COMMIT_MESSAGE" value="fin edicion, funciona todo" />
+    <MESSAGE value="VERSION FINAL, FALTARIA LIMPIAR DE ERRORES PERO VERSION 1.0" />
+    <option name="LAST_COMMIT_MESSAGE" value="VERSION FINAL, FALTARIA LIMPIAR DE ERRORES PERO VERSION 1.0" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
